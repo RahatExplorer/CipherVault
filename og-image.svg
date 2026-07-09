@@ -1,0 +1,88 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#070b16"/>
+      <stop offset="1" stop-color="#0b1220"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientTransform="translate(150 80) scale(520)">
+      <stop offset="0" stop-color="#38e1ff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#38e1ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="0" r="1" gradientTransform="translate(1100 560) scale(520)">
+      <stop offset="0" stop-color="#22e58f" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#22e58f" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="0" cy="0" r="1" gradientTransform="translate(980 60) scale(420)">
+      <stop offset="0" stop-color="#8b7bff" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#8b7bff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="txt" x1="120" y1="230" x2="900" y2="380" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38e1ff"/>
+      <stop offset="0.5" stop-color="#8b7bff"/>
+      <stop offset="1" stop-color="#22e58f"/>
+    </linearGradient>
+    <linearGradient id="lock" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22e58f"/>
+      <stop offset="1" stop-color="#38e1ff"/>
+    </linearGradient>
+    <pattern id="grid" width="46" height="46" patternUnits="userSpaceOnUse">
+      <path d="M46 0H0V46" fill="none" stroke="#7896c8" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow1)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+  <rect width="1200" height="630" fill="url(#glow3)"/>
+
+  <!-- brand row -->
+  <g transform="translate(90 78)">
+    <rect x="0" y="10" width="52" height="34" rx="9" fill="url(#lock)"/>
+    <path d="M11 20v-7a15 15 0 0130 0v7" fill="none" stroke="#38e1ff" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="26" cy="30" r="5" fill="#04120c"/>
+    <text x="72" y="40" font-family="Inter, Segoe UI, sans-serif" font-size="34" font-weight="700" fill="#eef4ff" letter-spacing="-0.5">Cipher<tspan fill="#38e1ff">Vault</tspan></text>
+  </g>
+
+  <!-- badge -->
+  <g transform="translate(90 190)">
+    <rect x="0" y="0" width="430" height="46" rx="23" fill="#121a2c" fill-opacity="0.7" stroke="#7896c8" stroke-opacity="0.28"/>
+    <circle cx="26" cy="23" r="6" fill="#22e58f"/>
+    <text x="46" y="30" font-family="Inter, Segoe UI, sans-serif" font-size="18" font-weight="500" fill="#9fb0cc">100% client-side · nothing leaves your browser</text>
+  </g>
+
+  <!-- headline -->
+  <text x="88" y="330" font-family="Inter, Segoe UI, sans-serif" font-size="72" font-weight="800" fill="#eef4ff" letter-spacing="-2.5">The cryptography toolkit</text>
+  <text x="88" y="410" font-family="Inter, Segoe UI, sans-serif" font-size="72" font-weight="800" fill="url(#txt)" letter-spacing="-2.5">that teaches while it protects</text>
+
+  <!-- subline -->
+  <text x="90" y="470" font-family="Inter, Segoe UI, sans-serif" font-size="24" font-weight="400" fill="#9fb0cc">Hash · Encrypt · Encode · Sign · Explore ciphers — powered by native Web Crypto</text>
+
+  <!-- feature chips -->
+  <g font-family="JetBrains Mono, monospace" font-size="17" font-weight="500">
+    <g transform="translate(90 522)">
+      <rect width="150" height="44" rx="11" fill="#151d30" stroke="#7896c8" stroke-opacity="0.2"/>
+      <text x="24" y="28" fill="#38e1ff">SHA · AES</text>
+    </g>
+    <g transform="translate(258 522)">
+      <rect width="140" height="44" rx="11" fill="#151d30" stroke="#7896c8" stroke-opacity="0.2"/>
+      <text x="24" y="28" fill="#8b7bff">RSA keys</text>
+    </g>
+    <g transform="translate(416 522)">
+      <rect width="150" height="44" rx="11" fill="#151d30" stroke="#7896c8" stroke-opacity="0.2"/>
+      <text x="24" y="28" fill="#22e58f">Ciphers</text>
+    </g>
+    <g transform="translate(584 522)">
+      <rect width="185" height="44" rx="11" fill="#151d30" stroke="#7896c8" stroke-opacity="0.2"/>
+      <text x="24" y="28" fill="#9fb0cc">Passwords</text>
+    </g>
+  </g>
+
+  <!-- decorative padlock watermark -->
+  <g transform="translate(880 210)" opacity="0.9">
+    <rect x="0" y="120" width="230" height="180" rx="34" fill="url(#lock)" fill-opacity="0.14" stroke="url(#lock)" stroke-opacity="0.5" stroke-width="3"/>
+    <path d="M46 120V78a69 69 0 01138 0v42" fill="none" stroke="#38e1ff" stroke-opacity="0.55" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="115" cy="200" r="22" fill="#38e1ff" fill-opacity="0.5"/>
+    <rect x="107" y="212" width="16" height="42" rx="8" fill="#38e1ff" fill-opacity="0.5"/>
+  </g>
+</svg>

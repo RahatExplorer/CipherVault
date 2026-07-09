@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Learn Cryptography — CipherVault</title>
+<meta name="description" content="A plain-English guide to the cryptography that powers CipherVault: hashing, encoding, symmetric (AES) and public-key (RSA) encryption, classic ciphers, and password entropy — with links to try each concept live." />
+<meta name="author" content="CipherVault" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#070b16" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#eef2f9" media="(prefers-color-scheme: light)" />
+<link rel="canonical" href="https://ciphervault.app/learn.html" />
+
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="CipherVault" />
+<meta property="og:url" content="https://ciphervault.app/learn.html" />
+<meta property="og:title" content="Learn Cryptography — CipherVault" />
+<meta property="og:description" content="Hashing, encoding, AES, RSA, classic ciphers and password entropy, explained clearly — then try each one live in the toolkit." />
+<meta property="og:image" content="https://ciphervault.app/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="CipherVault — interactive cryptography toolkit" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Learn Cryptography — CipherVault" />
+<meta name="twitter:description" content="A clear, honest guide to hashing, AES, RSA, ciphers and password entropy." />
+<meta name="twitter:image" content="https://ciphervault.app/og-image.png" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='5' y='14' width='22' height='14' rx='4' fill='%2322e58f'/%3E%3Cpath d='M10 14v-3a6 6 0 0112 0v3' fill='none' stroke='%2338e1ff' stroke-width='3'/%3E%3Ccircle cx='16' cy='20' r='2.2' fill='%2304120c'/%3E%3C/svg%3E" />
+<script>try{var t=localStorage.getItem('cv-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+<div class="bg-fx" aria-hidden="true"></div>
+<canvas id="matrix" aria-hidden="true"></canvas>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand" aria-label="CipherVault home">
+      <svg class="logo" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="4" y="13" width="24" height="16" rx="4" fill="url(#g1)"/>
+        <path d="M9 13v-3a7 7 0 0114 0v3" stroke="#38e1ff" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="16" cy="20" r="2.4" fill="#04120c"/>
+        <rect x="15" y="21" width="2" height="4" rx="1" fill="#04120c"/>
+        <defs><linearGradient id="g1" x1="4" y1="13" x2="28" y2="29"><stop stop-color="#22e58f"/><stop offset="1" stop-color="#38e1ff"/></linearGradient></defs>
+      </svg>
+      Cipher<b>Vault</b>
+    </a>
+    <div class="nav-right">
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="toolkit.html">Toolkit</a>
+        <a href="learn.html" class="active" aria-current="page">Learn</a>
+        <a href="toolkit.html" class="nav-cta">Launch Toolkit</a>
+      </nav>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle light or dark theme"></button>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ============ PAGE HEAD ============ -->
+<section class="wrap has-beam">
+  <div class="page-head">
+    <div class="eyebrow reveal">// cryptography 101</div>
+    <h1 class="reveal">Cryptography, <span class="grad">explained clearly</span></h1>
+    <p class="reveal">Six concepts, no hand-waving. Read the idea, understand the trade-offs, then jump into the toolkit and watch it happen for real. Every section links to the tool that demonstrates it.</p>
+  </div>
+
+  <!-- animated search bar -->
+  <div class="cv-search-wrap reveal">
+    <div class="cv-search">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="glow glow-2"></div>
+      <div class="glow glow-2"></div>
+      <div class="glow glow-bright"></div>
+      <div class="glow glow-sharp"></div>
+      <div class="cv-search-main">
+        <input type="text" class="cv-search-input" data-filter=".concept" data-empty="#conceptEmpty" placeholder="Search concepts…" aria-label="Search cryptography concepts" autocomplete="off" />
+        <div class="input-mask"></div>
+        <div class="pink-mask"></div>
+        <div class="search-border-anim"></div>
+        <div class="filter-icon">
+          <svg preserveAspectRatio="none" height="27" width="27" viewBox="4.8 4.56 14.832 15.408" fill="none" aria-hidden="true">
+            <path d="M8.16 6.65002H15.83C16.47 6.65002 16.99 7.17002 16.99 7.81002V9.09002C16.99 9.56002 16.7 10.14 16.41 10.43L13.91 12.64C13.56 12.93 13.33 13.51 13.33 13.98V16.48C13.33 16.83 13.1 17.29 12.81 17.47L12 17.98C11.24 18.45 10.2 17.92 10.2 16.99V13.91C10.2 13.5 9.97 12.98 9.73 12.69L7.52 10.36C7.23 10.08 7 9.55002 7 9.20002V7.87002C7 7.17002 7.52 6.65002 8.16 6.65002Z" stroke="#cdd7e6" stroke-width="1" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div class="search-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" height="24" fill="none" aria-hidden="true">
+            <circle stroke="url(#cvsearch)" r="8" cy="11" cx="11"></circle>
+            <line stroke="url(#cvsearchl)" y2="16.65" y1="22" x2="16.65" x1="22"></line>
+            <defs>
+              <linearGradient gradientTransform="rotate(50)" id="cvsearch">
+                <stop stop-color="#e7f9ff" offset="0%"></stop>
+                <stop stop-color="#8fbccb" offset="50%"></stop>
+              </linearGradient>
+              <linearGradient id="cvsearchl">
+                <stop stop-color="#8fbccb" offset="0%"></stop>
+                <stop stop-color="#5c7a86" offset="50%"></stop>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cv-search-empty" id="conceptEmpty">No concepts match that search.</div>
+
+  <!-- concept cards -->
+  <div class="concept-grid">
+    <a href="#hashing" class="concept reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9h16M4 15h16M10 3L8 21M16 3l-2 18"/></svg></div><div class="tag">One-way</div><h3>Hashing</h3><p>Fixed-length fingerprints you can't reverse — for integrity and passwords.</p></a>
+    <a href="#encoding" class="concept reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div><div class="tag">Reversible</div><h3>Encoding</h3><p>Reshaping data for transport. Not secret, and not encryption.</p></a>
+    <a href="#symmetric" class="concept reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div><div class="tag">Shared key</div><h3>Symmetric — AES</h3><p>One secret key encrypts and decrypts. Fast, strong, everywhere.</p></a>
+    <a href="#publickey" class="concept reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3L19 4M15 4h4v4M14 9l3 3"/></svg></div><div class="tag">Key pair</div><h3>Public-key — RSA</h3><p>A public key to lock, a private key to unlock — and digital signatures.</p></a>
+    <a href="#ciphers" class="concept reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/></svg></div><div class="tag">Historical</div><h3>Classic ciphers</h3><p>Caesar to Vigenère — the roots of the craft, and why they fail.</p></a>
+    <a href="#passwords" class="concept reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.6 7.6a5 5 0 11-7 7 5 5 0 017-7zm0 0L15 8m0 0l3 3 3-3-3-3"/></svg></div><div class="tag">Entropy</div><h3>Passwords</h3><p>Why length beats complexity, measured in bits of entropy.</p></a>
+  </div>
+</section>
+
+<!-- ============ ARTICLE ============ -->
+<section class="wrap">
+  <div class="article">
+
+    <section id="hashing" class="reveal">
+      <h2><span class="num">01</span> Hashing</h2>
+      <p>A <b>cryptographic hash function</b> takes any input — a word, a file, a movie — and produces a fixed-length string called a <b>digest</b>. The same input always yields the same digest, but the function is <b>one-way</b>: you cannot run it backwards to recover the input.</p>
+      <p>The magic property is the <b>avalanche effect</b>: change a single bit of the input and roughly half the output bits flip. That's what makes hashes useful for <b>integrity</b> — download a file, hash it, and compare against the published digest; if even one byte was altered in transit, the digests won't match.</p>
+      <h3>Where hashes are used</h3>
+      <ul>
+        <li><b>Password storage</b> — servers store a salted hash, never the password itself.</li>
+        <li><b>File &amp; message integrity</b> — checksums and content addressing (e.g. Git commits).</li>
+        <li><b>Digital signatures</b> — you sign the hash of a document, not the whole document.</li>
+      </ul>
+      <div class="callout warn"><b>Not all hashes are equal.</b> <code>MD5</code> and <code>SHA-1</code> are broken — attackers can craft collisions. Use <code>SHA-256</code> or better. For passwords specifically, use a <i>slow</i> hash like bcrypt, scrypt or Argon2, not a raw SHA.</div>
+      <a class="try-link" href="toolkit.html">Try live hashing in the toolkit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </section>
+
+    <section id="encoding" class="reveal">
+      <h2><span class="num">02</span> Encoding</h2>
+      <p><b>Encoding is not encryption.</b> This is the single most common misconception in security. Encoding reshapes data into a format that survives text-only channels — email bodies, URLs, JSON — but anyone can reverse it. There is no key and no secrecy.</p>
+      <ul>
+        <li><code>Base64</code> — maps every 3 bytes to 4 printable ASCII characters. Great for embedding binary in text.</li>
+        <li><code>Hex</code> — writes each byte as two hexadecimal digits; common in fingerprints and debugging.</li>
+        <li><code>URL encoding</code> — escapes characters that have special meaning in a URL (spaces, <code>&amp;</code>, <code>?</code>).</li>
+      </ul>
+      <div class="callout"><b>Rule of thumb:</b> if you can decode it without a secret, it was never protecting anything. Need confidentiality? Reach for AES.</div>
+      <a class="try-link" href="toolkit.html">Convert Base64 / Hex / URL / Binary <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </section>
+
+    <section id="symmetric" class="reveal">
+      <h2><span class="num">03</span> Symmetric encryption — AES</h2>
+      <p><b>Symmetric</b> means the same key encrypts and decrypts. <b>AES</b> (Advanced Encryption Standard) is the world's workhorse cipher — it protects TLS traffic, disk encryption and messaging apps. CipherVault uses <b>AES-256-GCM</b>, a 256-bit key in Galois/Counter Mode.</p>
+      <h3>The two ingredients that make it safe</h3>
+      <ul>
+        <li><b>Key derivation (PBKDF2).</b> Humans pick weak passphrases, so we stretch yours through 250,000 rounds of hashing with a random <b>salt</b>. This makes each guess expensive for an attacker and ensures the same passphrase produces a different key each time.</li>
+        <li><b>Authenticated encryption (GCM).</b> Beyond hiding the message, GCM attaches an <b>authentication tag</b>. If a single byte of ciphertext is altered, decryption fails loudly instead of returning garbage — you get confidentiality <i>and</i> tamper-detection.</li>
+      </ul>
+      <p>A fresh random <b>IV</b> (initialization vector) is used every time, so encrypting the same message twice yields different ciphertext. CipherVault packs the salt, IV and ciphertext into one Base64 blob so decryption is fully self-contained.</p>
+      <div class="callout warn"><b>There is no backdoor.</b> Lose the passphrase and the data is unrecoverable — that's the point of strong encryption.</div>
+      <a class="try-link" href="toolkit.html">Encrypt a message with AES-256-GCM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </section>
+
+    <section id="publickey" class="reveal">
+      <h2><span class="num">04</span> Public-key cryptography — RSA</h2>
+      <p>Symmetric encryption has one hard problem: how do two people agree on a shared key without meeting? <b>Public-key</b> cryptography solves it with a <b>key pair</b> — two mathematically linked keys where what one locks, only the other unlocks.</p>
+      <ul>
+        <li><b>Encryption (RSA-OAEP).</b> You publish your <b>public key</b>. Anyone can encrypt a message to you with it, but only your <b>private key</b> can decrypt. No shared secret required.</li>
+        <li><b>Signatures (RSA-PSS).</b> Reverse the roles: you <b>sign</b> a message with your private key, and anyone can <b>verify</b> it with your public key. This proves authenticity and integrity — edit the message after signing and verification fails.</li>
+      </ul>
+      <p>RSA is slow and can only encrypt small payloads (a few hundred bytes), so real systems use <b>hybrid encryption</b>: RSA encrypts a random AES key, and AES encrypts the actual data. You get the key-exchange convenience of RSA with the speed of AES.</p>
+      <div class="callout"><b>Try the tamper test:</b> in the toolkit, sign a message, then change one character and hit Verify. Watch it flip from valid to invalid — that's a digital signature protecting integrity.</div>
+      <a class="try-link" href="toolkit.html">Generate an RSA key pair &amp; sign a message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </section>
+
+    <section id="ciphers" class="reveal">
+      <h2><span class="num">05</span> Classic ciphers</h2>
+      <p>Before computers, cryptography was pen-and-paper letter substitution. These ciphers are wonderful teaching tools because you can trace every step by hand — and instructive failures, because every one of them is trivially broken today.</p>
+      <ul>
+        <li><b>Caesar</b> — shift each letter a fixed number of places. Only 25 possible keys, so a brute force is instant.</li>
+        <li><b>ROT13</b> — Caesar with a shift of 13; applying it twice returns the original. Used for hiding spoilers, not secrets.</li>
+        <li><b>Atbash</b> — mirror the alphabet (A↔Z, B↔Y). A fixed substitution with no key at all.</li>
+        <li><b>Vigenère</b> — a repeating keyword sets a different shift for each letter. Unbroken for centuries, then defeated by spotting the repeating key length.</li>
+        <li><b>XOR</b> — combine each byte with a key byte. Secure <i>only</i> as a one-time pad (random key as long as the message, never reused); with a short repeating key it's easily cracked.</li>
+      </ul>
+      <div class="callout warn"><b>Never trust a classic cipher with real data.</b> They fall to frequency analysis or brute force in seconds. Learn from them, then use AES.</div>
+      <a class="try-link" href="toolkit.html">Play with Caesar, Vigenère &amp; XOR <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </section>
+
+    <section id="passwords" class="reveal">
+      <h2><span class="num">06</span> Passwords &amp; entropy</h2>
+      <p>Password strength isn't about weird symbols — it's about <b>entropy</b>, the number of guesses an attacker must try, measured in bits. Each extra bit doubles the work. Entropy grows with both the <b>length</b> and the size of the character pool, which is why a long passphrase beats a short cryptic jumble.</p>
+      <p>Roughly: <code>entropy ≈ length × log₂(pool size)</code>. A 20-character password drawn from all keyboard characters lands well over 100 bits — effectively uncrackable by brute force. A clever 8-character password does not.</p>
+      <ul>
+        <li><b>Use a generator.</b> Truly random beats human-chosen every time. CipherVault's generator uses <code>crypto.getRandomValues()</code>, a cryptographically secure source — never <code>Math.random()</code>.</li>
+        <li><b>Prefer length.</b> Four random words are stronger and more memorable than <code>P@ssw0rd!</code>.</li>
+        <li><b>Never reuse.</b> One breach shouldn't unlock every account — use a password manager.</li>
+      </ul>
+      <a class="try-link" href="toolkit.html">Score a password &amp; generate a strong one <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </section>
+
+    <section id="golden" class="reveal">
+      <h2><span class="num">★</span> The golden rules</h2>
+      <ul>
+        <li><b>Don't roll your own crypto.</b> Use vetted primitives (like the Web Crypto API) and well-reviewed libraries.</li>
+        <li><b>Encoding ≠ encryption.</b> If there's no key, there's no secrecy.</li>
+        <li><b>Hash passwords with a slow, salted function</b> — bcrypt, scrypt or Argon2.</li>
+        <li><b>Authenticate your encryption.</b> Prefer AEAD modes like AES-GCM so tampering is detected.</li>
+        <li><b>Length &gt; complexity</b> for passwords, and never reuse them.</li>
+        <li><b>Keep private keys private.</b> Public keys are meant to be shared; private keys never leave your control.</li>
+      </ul>
+      <div class="callout"><b>CipherVault is an educational toolkit.</b> Everything here runs client-side to help you learn — it is not a substitute for audited, production key management.</div>
+      <a class="try-link" href="toolkit.html">Open the secure console <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </section>
+
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta-band wrap">
+  <div class="cta-card reveal">
+    <h2>Ready to see it in action?</h2>
+    <p>You've got the concepts — now open the toolkit and encrypt, hash and sign for real. Nothing leaves your browser.</p>
+    <a href="toolkit.html" class="btn primary" style="margin:0 auto">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+      Launch the Toolkit
+    </a>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="brand" style="font-size:18px">
+          <svg class="logo" viewBox="0 0 32 32" fill="none" aria-hidden="true" style="width:30px;height:30px">
+            <rect x="4" y="13" width="24" height="16" rx="4" fill="url(#g2)"/>
+            <path d="M9 13v-3a7 7 0 0114 0v3" stroke="#38e1ff" stroke-width="2.4" stroke-linecap="round"/>
+            <defs><linearGradient id="g2" x1="4" y1="13" x2="28" y2="29"><stop stop-color="#22e58f"/><stop offset="1" stop-color="#38e1ff"/></linearGradient></defs>
+          </svg>
+          Cipher<b>Vault</b>
+        </a>
+        <p>An open, client-side cryptography toolkit for the security-curious. Built to teach the fundamentals honestly.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h4>Toolkit</h4>
+          <a href="toolkit.html">Hashing</a>
+          <a href="toolkit.html">Encoder</a>
+          <a href="toolkit.html">AES Vault</a>
+          <a href="toolkit.html">Ciphers</a>
+          <a href="toolkit.html">RSA Keys</a>
+        </div>
+        <div class="foot-col">
+          <h4>Learn</h4>
+          <a href="learn.html#hashing">Hashing</a>
+          <a href="learn.html#symmetric">Symmetric (AES)</a>
+          <a href="learn.html#publickey">Public-key (RSA)</a>
+          <a href="learn.html#passwords">Passwords &amp; entropy</a>
+        </div>
+        <div class="foot-col">
+          <h4>Trust</h4>
+          <a href="index.html#features">Privacy model</a>
+          <a href="index.html#features">Web Crypto API</a>
+          <a href="learn.html#golden">Golden rules</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 CipherVault · Educational cryptography toolkit.</span>
+      <span>Not a substitute for audited, production key management.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
