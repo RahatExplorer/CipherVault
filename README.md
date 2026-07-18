@@ -3,6 +3,8 @@
 **A secure, interactive cryptography toolkit for learners and professionals.**
 Hash, encrypt, encode, sign, and explore classic ciphers in real time — 100% client-side, powered by the browser's native **Web Crypto API**. Nothing ever leaves your device.
 
+### 🌐 [**Live demo → cipher-vault-vert.vercel.app**](https://cipher-vault-vert.vercel.app/)
+
 ![CipherVault social preview](og-image.png)
 
 ---
@@ -62,9 +64,11 @@ Any static host works. Once loaded, every page works **fully offline**.
 
 ---
 
-## 🌐 Deploying (important)
+## 🌐 Deploying
 
-Every page ships with SEO + social-share metadata that references a placeholder domain. Before deploying, **find & replace `https://ciphervault.app/`** with your real URL across `index.html`, `toolkit.html` and `learn.html` (canonical links, Open Graph `og:url`/`og:image`, and Twitter/JSON-LD tags).
+This project is live on **Vercel** at **[cipher-vault-vert.vercel.app](https://cipher-vault-vert.vercel.app/)** — every push to `main` auto-deploys. It's a plain static site, so any static host works.
+
+The SEO + social-share metadata (canonical links, Open Graph `og:url`/`og:image`, Twitter/JSON-LD tags) already points at the live domain. If you fork this and deploy to a **different** URL, find & replace `https://cipher-vault-vert.vercel.app/` with your own domain across the HTML pages.
 
 Files to upload:
 
