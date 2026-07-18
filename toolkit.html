@@ -102,6 +102,9 @@
       <button class="tab" role="tab" aria-selected="false" data-tab="rsa">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3L19 4M15 4h4v4M14 9l3 3"/></svg> RSA Keys
       </button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="breach">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M12 9v4M12 16h.01"/></svg> Breach Check
+      </button>
     </div>
 
     <div class="panel-wrap">
@@ -331,6 +334,28 @@
         <details class="explain">
           <summary>RSA — the maths behind public-key crypto <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
           <div class="body">RSA uses a <b>key pair</b>: a <b>public</b> key you share and a <b>private</b> key you guard. Anyone can encrypt to you with your public key, but only your private key can decrypt (<code>RSA-OAEP</code>). Flip it around and you can <b>sign</b> with your private key so anyone can <b>verify</b> authenticity with your public key (<code>RSA-PSS</code>) — try editing a signed message and re-verifying to watch it fail. Keys are 2048-bit, generated locally, and exist only for this session. Note: RSA encrypts small payloads only; real systems use it to wrap an AES key (hybrid encryption). Learn more on the <a href="learn.html#publickey" style="color:var(--accent-2)">Learn page</a>.</div>
+        </details>
+      </div>
+
+      <!-- BREACH CHECK -->
+      <div class="panel" id="p-breach" role="tabpanel">
+        <div class="row" style="margin-bottom:4px">
+          <div class="field">
+            <label for="breachInput">Check a password against known breaches <span class="hint">the password never leaves your browser</span></label>
+            <input type="text" id="breachInput" placeholder="Type a password to check…" value="password123" autocomplete="off" />
+          </div>
+        </div>
+        <div class="controls">
+          <button class="mini go" id="breachRun"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg> Check breaches</button>
+        </div>
+        <div class="breach-result" id="breachResult" aria-live="polite"></div>
+        <div class="breach-privacy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+          <span>Privacy by design (k-anonymity): your browser SHA-1 hashes the password and sends only the <b>first 5 characters</b> of that hash to Have I Been Pwned. The full password — and the rest of the hash — <b>never leave this tab</b>.</span>
+        </div>
+        <details class="explain">
+          <summary>How the breach check works <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="body"><b>Have I Been Pwned</b> holds a database of over 800 million passwords exposed in real data breaches. Using <code>k-anonymity</code>, your browser hashes the password with <code>SHA-1</code>, sends just the 5-character hash prefix, and receives back every matching suffix and its breach count — then checks locally whether yours is among them. The service never sees your password or even its full hash. If a password appears here, it's public knowledge to attackers — stop using it everywhere and generate a fresh one in the <b>Passwords</b> tab. This is the one tool that reaches the network; every other tool is fully offline.</div>
         </details>
       </div>
     </div>

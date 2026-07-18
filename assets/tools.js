@@ -433,6 +433,46 @@ $('#rsaVerify').addEventListener('click',async()=>{
   }catch(e){ rsaStatus('✗ Verification error — signature is malformed.','var(--danger)'); }
 });
 
+/* ============================================================
+   7. BREACH CHECK (Have I Been Pwned · Pwned Passwords, k-anonymity)
+   ============================================================ */
+const BR_WARN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>';
+const BR_CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>';
+async function sha1hex(str){
+  const buf=await crypto.subtle.digest('SHA-1', enc.encode(str));
+  return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('').toUpperCase();
+}
+async function checkBreach(){
+  const pw=$('#breachInput').value;
+  if(!pw){ toast('Enter a password to check'); return; }
+  const box=$('#breachResult'), btn=$('#breachRun'), html=btn.innerHTML;
+  btn.disabled=true; btn.innerHTML='Checking…';
+  box.className='breach-result show'; box.style.borderColor=''; box.innerHTML='<div class="br-head" style="color:var(--fg-dim)">Querying Have I Been Pwned…</div>';
+  try{
+    const hash=await sha1hex(pw), prefix=hash.slice(0,5), suffix=hash.slice(5);
+    const res=await fetch('https://api.pwnedpasswords.com/range/'+prefix);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const text=await res.text();
+    let count=0;
+    text.split('\n').forEach(line=>{ const p=line.trim().split(':'); if(p[0]===suffix) count=parseInt(p[1],10)||0; });
+    if(count>0){
+      box.className='breach-result show pwned';
+      box.innerHTML='<div class="br-head">'+BR_WARN+'Found in a breach</div>'+
+        '<p>This password has appeared <b>'+count.toLocaleString()+'</b> times in known data breaches. Attackers already have it — never use it anywhere. Generate a strong, unique one in the <b>Passwords</b> tab.</p>';
+    }else{
+      box.className='breach-result show safe';
+      box.innerHTML='<div class="br-head">'+BR_CHECK+'No breach found</div>'+
+        '<p>This password wasn’t found in any known breach dataset — a good sign. But “not breached” doesn’t mean “strong”; check its entropy in the <b>Passwords</b> tab too.</p>';
+    }
+  }catch(e){
+    box.className='breach-result show'; box.style.borderColor='var(--warn)';
+    box.innerHTML='<div class="br-head" style="color:var(--warn)">'+BR_WARN+'Couldn’t reach the service</div>'+
+      '<p>The Have I Been Pwned API couldn’t be reached ('+ (e.message||'network error') +'). This is the only tool that needs the network — check your connection and try again.</p>';
+  }finally{ btn.disabled=false; btn.innerHTML=html; }
+}
+$('#breachRun').addEventListener('click',checkBreach);
+$('#breachInput').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); checkBreach(); } });
+
 /* ---------- init all tools ---------- */
 renderHashes(); runEncode(); runCipher(); renderStrength(); generate();
 })();

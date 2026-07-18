@@ -27,8 +27,41 @@ if(slider){
 }
 setHue(hue);
 
-/* ---- bail to CSS fallback when animation isn't wanted/possible ---- */
+/* ---- slowly orbit the four feature labels around the globe ----
+   Runs regardless of WebGL. Labels fade as they pass the busy centre
+   (a subtle depth effect) so the composition never looks packed. */
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+(function(){
+  const labels = Array.from(document.querySelectorAll('.odyssey-features .feature-item'));
+  const fbox = document.querySelector('.odyssey-features');
+  if(!labels.length || !fbox) return;
+  let angle = -90, lastT = 0, raf = 0;
+  function place(){
+    const R = fbox.clientWidth * 0.5 + 42;             // just OUTSIDE the globe's rim
+    labels.forEach((el,i)=>{
+      const a = (angle + i*90) * Math.PI/180;
+      const x = Math.cos(a)*R, y = Math.sin(a)*R;
+      el.style.transform = 'translate(-50%,-50%) translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px)';
+      el.style.opacity = (0.6 + 0.4*((Math.sin(a)+1)/2)).toFixed(3);   // subtle depth: brighter toward the front (bottom)
+    });
+  }
+  place();
+  if(reduce) return;                                   // static placement, no motion
+  function loop(now){
+    let dt = lastT ? (now-lastT) : 16; lastT = now; if(dt>60) dt=60;
+    angle = (angle + dt*0.0035) % 360;                 // ~3.5°/sec — a slow drift
+    place();
+    raf = requestAnimationFrame(loop);
+  }
+  raf = requestAnimationFrame(loop);
+  window.addEventListener('resize', place);
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden){ cancelAnimationFrame(raf); raf=0; lastT=0; }
+    else if(!raf){ raf=requestAnimationFrame(loop); }
+  });
+})();
+
+/* ---- bail to CSS fallback when animation isn't wanted/possible ---- */
 let gl = null;
 try{ gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl'); }catch(e){}
 if(reduce || !gl){ hero.classList.add('reduced'); canvas.style.display='none'; return; }

@@ -102,17 +102,13 @@
   <div class="planet" aria-hidden="true"></div>
 
   <div class="odyssey-features" aria-hidden="true">
-    <div class="feature-item fi-1 reveal" style="transition-delay:.15s"><span class="dot"></span><span><span class="fi-name">Web Crypto</span><br><span class="fi-val">native engine</span></span></div>
-    <div class="feature-item fi-2 reveal" style="transition-delay:.25s"><span class="dot"></span><span><span class="fi-name">AES-256-GCM</span><br><span class="fi-val">for vaults</span></span></div>
-    <div class="feature-item fi-3 reveal" style="transition-delay:.35s"><span class="dot"></span><span><span class="fi-name">RSA-2048</span><br><span class="fi-val">for key pairs</span></span></div>
-    <div class="feature-item fi-4 reveal" style="transition-delay:.45s"><span class="dot"></span><span><span class="fi-name">Zero-knowledge</span><br><span class="fi-val">client-side</span></span></div>
+    <div class="feature-item"><span class="dot"></span><span><span class="fi-name">Web Crypto</span><br><span class="fi-val">native engine</span></span></div>
+    <div class="feature-item"><span class="dot"></span><span><span class="fi-name">AES-256-GCM</span><br><span class="fi-val">for vaults</span></span></div>
+    <div class="feature-item"><span class="dot"></span><span><span class="fi-name">RSA-2048</span><br><span class="fi-val">for key pairs</span></span></div>
+    <div class="feature-item"><span class="dot"></span><span><span class="fi-name">Zero-knowledge</span><br><span class="fi-val">client-side</span></span></div>
   </div>
 
   <div class="odyssey-content">
-    <span class="pill reveal">
-      Open source · 100% client-side
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3l5 5-5 5M13 8H3"/></svg>
-    </span>
     <h1 class="reveal" style="transition-delay:.08s">Cipher<b>Vault</b></h1>
     <h2 class="reveal" style="transition-delay:.16s">Securing the future, in your browser</h2>
     <p class="reveal" style="transition-delay:.24s">Every hash, cipher and key is forged locally on your device — nothing ever leaves this tab. This lightning is 100&nbsp;% code; drag the slider to tune its hue.</p>
@@ -175,45 +171,14 @@
   </div>
 </section>
 
-<!-- ============ TOOL PREVIEW ============ -->
-<section class="features wrap">
+<!-- ============ ORBITAL TOOLKIT EXPLORER ============ -->
+<section class="orbital-sec wrap" id="explore">
   <div class="sec-head reveal">
     <div class="eyebrow">// the toolkit</div>
-    <h2>Six tools. One secure console.</h2>
-    <p>Everything runs locally in your browser. Jump straight in, or read the concepts first.</p>
+    <h2>Six tools, one orbit</h2>
+    <p>Spin through the suite — tap any node to see what it does, how the tools connect, and launch it. Everything runs client-side.</p>
   </div>
-  <div class="feat-grid">
-    <a href="toolkit.html" class="feat reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9h16M4 15h16M10 3L8 21M16 3l-2 18"/></svg></div>
-      <h3>Hashing</h3>
-      <p>SHA-256/384/512 and legacy MD5/SHA-1 computed live, with the avalanche effect on full display.</p>
-    </a>
-    <a href="toolkit.html" class="feat reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div>
-      <h3>Encoder</h3>
-      <p>Base64, Hex, URL and Binary — reversible transforms for moving data through text-only systems.</p>
-    </a>
-    <a href="toolkit.html" class="feat reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div>
-      <h3>AES Vault</h3>
-      <p>Real AES-256-GCM with PBKDF2 key stretching — authenticated encryption you can share as one blob.</p>
-    </a>
-    <a href="toolkit.html" class="feat reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/></svg></div>
-      <h3>Classic Ciphers</h3>
-      <p>Caesar, ROT13, Atbash, Vigenère and XOR — the historical roots of cryptography, made interactive.</p>
-    </a>
-    <a href="toolkit.html" class="feat reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.6 7.6a5 5 0 11-7 7 5 5 0 017-7zm0 0L15 8m0 0l3 3 3-3-3-3"/></svg></div>
-      <h3>Passwords</h3>
-      <p>An entropy-based strength meter and a CSPRNG generator that scores every password it makes.</p>
-    </a>
-    <a href="toolkit.html" class="feat reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3L19 4M15 4h4v4M14 9l3 3"/></svg></div>
-      <h3>RSA Keys</h3>
-      <p>Generate 2048-bit key pairs, encrypt with RSA-OAEP, and sign/verify with RSA-PSS — tamper detection included.</p>
-    </a>
-  </div>
+  <div class="orbital-stage" id="orbital" aria-label="Interactive toolkit explorer" role="group"></div>
 </section>
 
 <!-- ============ HOW ============ -->
@@ -225,18 +190,33 @@
   </div>
   <div class="step-grid">
     <div class="step reveal">
+      <span class="step-num">01</span>
       <h3>Derive a key</h3>
       <p>Your passphrase is salted and stretched through 250,000 rounds of PBKDF2 into a 256-bit AES key — slowing brute force to a crawl.</p>
     </div>
     <div class="step reveal">
+      <span class="step-num">02</span>
       <h3>Encrypt &amp; authenticate</h3>
       <p>AES-GCM seals your message with a random IV and produces an authentication tag, so any tampering is detected on decryption.</p>
     </div>
     <div class="step reveal">
+      <span class="step-num">03</span>
       <h3>Share the blob</h3>
       <p>Salt, IV and ciphertext are packed into one Base64 string. Send it anywhere — only the passphrase can unlock it.</p>
     </div>
   </div>
+</section>
+
+<!-- ============ NEWS TEASER ============ -->
+<section class="news-teaser-sec wrap" id="newsTeaserSec" hidden>
+  <div class="nt-head">
+    <div>
+      <div class="eyebrow">// live feed</div>
+      <h2>Latest from the newsroom</h2>
+    </div>
+    <a href="news.html" class="nt-all">All cybersecurity news <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+  <div class="news-teaser" id="newsTeaser"></div>
 </section>
 
 <!-- ============ CTA ============ -->
@@ -300,5 +280,8 @@
 
 <script src="assets/site.js"></script>
 <script src="assets/hero.js"></script>
+<script src="assets/orbital.js"></script>
+<script src="assets/news-teaser.js"></script>
+<script src="assets/tilt-cards.js"></script>
 </body>
 </html>
